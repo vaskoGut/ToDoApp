@@ -11,16 +11,9 @@ Implement debouncing:
 5. If the input is empty:
 6. Clear results
 7. write with fetch and with try async syntax <code></code>
+8. Properly clean up side effects:
 
 
-
-
-
-
-Display the search results after the request completes.
-
-Do not trigger a search
-Properly clean up side effects:
 Cancel pending debounce timers when input changes
 ⭐ Bonus (for stronger solutions)
 Extract debounce logic into a custom hook (useDebounce)
@@ -88,7 +81,7 @@ export default function SearchBar() {
                 const result = await fetch('https://dummyjson.com/products', { signal: abortController.signal });
                 if(!result.ok) throw new Error('some eorror');
                 const data = await result.json();
-                setData(data);
+                setData(data.products);
             } catch(error) {
                 console.error(error);
             } finally {
